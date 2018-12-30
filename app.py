@@ -5,23 +5,25 @@ from pdfminer.converter import TextConverter
 from pdfminer.layout import LAParams
 from pdfminer.pdfpage import PDFPage
 from io import StringIO
-import os
 
+UPLOAD_FOLDER = 'static'
 app = Flask(__name__)
-static_file_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'static')
 
-@app.route('/')
-def form():
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+@app.route('/', methods=['GET', 'POST'])
+def index():
     return render_template("index.html")
 
 @app.route('/transform', methods=['POST'])
 def transform():
-    file = request.files['data_file']
+    file = request.files['file']
     rsrcmgr = PDFResourceManager()
     retstr = StringIO()
     codec = 'utf-8'
     laparams = LAParams()
     device = TextConverter(rsrcmgr, retstr, codec=codec, laparams=laparams)
+
     interpreter = PDFPageInterpreter(rsrcmgr, device)
     password = ""
     maxpages = 0
@@ -40,11 +42,11 @@ def transform():
     filename = 'result.mp3'
 
     return send_from_directory(
-        static_file_dir,
+        app.config['UPLOAD_FOLDER'],
         filename,
         mimetype="audio/mp3",
         as_attachment=True,
-        attachment_filename="result.mp3")
+        attachment_filename=filename)
 
 if __name__ == "__main__":
     app.run(debug=True)
