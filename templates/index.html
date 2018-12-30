@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Transform pdf text to speech demo</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="{{url_for('form')}}">Google Text-to-Speech</a>
+</nav>
+<div align="center">
+    <h2>Transform pdf text in Greek to speech demo</h2>
+    <h3>Upload new File</h3>
+    <form action="/transform" method="post" enctype="multipart/form-data">
+        <p><input type="file" name="data_file" required>
+            <input type="submit" value=Upload>
+        </p>
+    </form>
+    <h2> This is an example pdf!</h2>
+    <a href="{{ url_for('static', filename='greek_sample.pdf')}}">Here is an example pdf! </a>
+</div>
+</body>
+</html>
