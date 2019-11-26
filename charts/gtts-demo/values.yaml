@@ -16,7 +16,7 @@ knativeDeploy: false
 service:
   name: gtts-demo
   type: NodePort
-  externalPort: 80
+  externalPort: 32593
   internalPort: 8080
   annotations:
     fabric8.io/expose: "true"
